@@ -11,6 +11,12 @@ class EchoRunner(private val descriptor: PluginDescriptor, registry: RunTypeRegi
         registry.registerRunType(this)
     }
 
+    override fun getType() = Constants.RUNNER_TYPE
+
+    override fun getDisplayName() = "Echo Runner"
+
+    override fun getDescription() = "This is my echo runner"
+
     override fun getRunnerPropertiesProcessor() = PropertiesProcessor { emptyList<InvalidProperty>() }
 
     override fun getEditRunnerParamsJspFilePath() = descriptor.getPluginResourcesPath("editParams.jsp")
@@ -18,10 +24,4 @@ class EchoRunner(private val descriptor: PluginDescriptor, registry: RunTypeRegi
     override fun getViewRunnerParamsJspFilePath() = descriptor.getPluginResourcesPath("viewParams.jsp")
 
     override fun getDefaultRunnerProperties() = emptyMap<String, String>()
-
-    override fun getType() = "echoRunnerType"
-
-    override fun getDisplayName() = "Echo Runner"
-
-    override fun getDescription() = "This is my echo runner"
 }

@@ -22,8 +22,9 @@
         </pluginRepository>
     </pluginRepositories>
     <modules>
-        <module>testPrioritizationPlugin-server</module>
         <module>build</module>
-        <module>teamcity-echo-plugin-agent</module>
+        <module>testPrioritizationPlugin-agent</module>
+        <module>testPrioritizationPlugin-common</module>
+        <module>testPrioritizationPlugin-server</module>
     </modules>
 </project>

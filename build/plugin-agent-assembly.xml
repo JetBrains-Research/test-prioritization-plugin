@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <assembly>
-    <id>plugin-assembly</id>
+    <id>plugin-agent-assembly</id>
     <includeBaseDirectory>false</includeBaseDirectory>
     <formats>
         <format>zip</format>
@@ -10,20 +10,16 @@
             <source>target/teamcity-plugin.xml</source>
             <outputDirectory>/</outputDirectory>
         </file>
-        <file>
-            <source>target/testPrioritizationPlugin-agent.zip</source>
-            <outputDirectory>agent</outputDirectory>
-        </file>
     </files>
     <moduleSets>
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>com.jetbrains.testPrioritizationPlugin:testPrioritizationPlugin-server</include>
+                <include>com.jetbrains.testPrioritizationPlugin:testPrioritizationPlugin-agent</include>
                 <include>com.jetbrains.testPrioritizationPlugin:testPrioritizationPlugin-common</include>
             </includes>
             <binaries>
-                <outputDirectory>server</outputDirectory>
+                <outputDirectory>lib</outputDirectory>
                 <unpack>false</unpack>
                 <dependencySets>
                     <dependencySet>
