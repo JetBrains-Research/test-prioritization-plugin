@@ -4,8 +4,8 @@ import jetbrains.buildServer.agent.AgentBuildRunnerInfo
 import jetbrains.buildServer.agent.BuildAgentConfiguration
 import jetbrains.buildServer.agent.runner.CommandLineBuildServiceFactory
 
-class EchoFactory : CommandLineBuildServiceFactory {
-    override fun createService() = EchoService()
+class TestPrioritizationFactory : CommandLineBuildServiceFactory {
+    override fun createService() = TestPrioritizationService()
 
     override fun getBuildRunnerInfo() = object : AgentBuildRunnerInfo {
         override fun getType() = Constants.RUNNER_TYPE

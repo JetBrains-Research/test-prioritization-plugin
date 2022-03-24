@@ -6,16 +6,16 @@ import jetbrains.buildServer.serverSide.RunTypeRegistry
 import jetbrains.buildServer.web.openapi.PluginDescriptor
 
 
-class EchoRunner(private val descriptor: PluginDescriptor, registry: RunTypeRegistry) : RunType() {
+class TestPrioritizationRunner(private val descriptor: PluginDescriptor, registry: RunTypeRegistry) : RunType() {
     init {
         registry.registerRunType(this)
     }
 
     override fun getType() = Constants.RUNNER_TYPE
 
-    override fun getDisplayName() = "Echo Runner"
+    override fun getDisplayName() = "Test Prioritization Runner"
 
-    override fun getDescription() = "This is Echo Runner"
+    override fun getDescription() = "This is Test Prioritization Runner!"
 
     override fun getRunnerPropertiesProcessor() = PropertiesProcessor { ArrayList() }
 
