@@ -7,7 +7,7 @@
     </formats>
     <files>
         <file>
-            <source>target/teamcity-plugin.xml</source>
+            <source>../test-prioritization-plugin-agent/teamcity-plugin.xml</source>
             <outputDirectory>/</outputDirectory>
         </file>
     </files>
@@ -15,8 +15,8 @@
         <moduleSet>
             <useAllReactorProjects>true</useAllReactorProjects>
             <includes>
-                <include>com.jetbrains.testPrioritizationPlugin:testPrioritizationPlugin-agent</include>
-                <include>com.jetbrains.testPrioritizationPlugin:testPrioritizationPlugin-common</include>
+                <include>org.jetbrains.teamcity:test-prioritization-plugin-agent</include>
+                <include>org.jetbrains.teamcity:test-prioritization-plugin-common</include>
             </includes>
             <binaries>
                 <outputDirectory>lib</outputDirectory>

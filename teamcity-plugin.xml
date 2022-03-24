@@ -2,10 +2,10 @@
 <teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:noNamespaceSchemaLocation="urn:schemas-jetbrains-com:teamcity-plugin-v1-xml">
     <info>
-        <name>testPrioritizationPlugin</name>
+        <name>test-prioritization-plugin</name>
         <display-name>Test Prioritization Plugin</display-name>
         <version>~Version~</version>
-        <description>Description TODO</description>
+        <description>Plugin description TODO</description>
         <download-url>Plugin download URL TODO</download-url>
         <email>Plugin author e-mail TODO</email>
         <vendor>

@@ -3,35 +3,35 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>testPrioritizationPlugin</artifactId>
-        <groupId>com.jetbrains.testPrioritizationPlugin</groupId>
+        <groupId>org.jetbrains.teamcity</groupId>
+        <artifactId>test-prioritization-plugin</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>build</artifactId>
     <packaging>pom</packaging>
     <properties>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <teamcity.testPrioritizationPlugin.plugin.version>snapshot-${maven.build.timestamp}
-        </teamcity.testPrioritizationPlugin.plugin.version>
-        <teamcity.testPrioritizationPlugin.plugin.vendorName>Plugin vendor name TODO
-        </teamcity.testPrioritizationPlugin.plugin.vendorName>
-        <teamcity.testPrioritizationPlugin.plugin.vendorUrl>Plugin vendor URL TODO
-        </teamcity.testPrioritizationPlugin.plugin.vendorUrl>
+        <teamcity.test-prioritization-plugin.plugin.version>snapshot-${maven.build.timestamp}
+        </teamcity.test-prioritization-plugin.plugin.version>
+        <teamcity.test-prioritization-plugin.plugin.vendorName>Plugin vendor name TODO
+        </teamcity.test-prioritization-plugin.plugin.vendorName>
+        <teamcity.test-prioritization-plugin.plugin.vendorUrl>Plugin vendor URL TODO
+        </teamcity.test-prioritization-plugin.plugin.vendorUrl>
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.jetbrains.testPrioritizationPlugin</groupId>
-            <artifactId>testPrioritizationPlugin-server</artifactId>
+            <groupId>org.jetbrains.teamcity</groupId>
+            <artifactId>test-prioritization-plugin-agent</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.jetbrains.testPrioritizationPlugin</groupId>
-            <artifactId>testPrioritizationPlugin-agent</artifactId>
+            <groupId>org.jetbrains.teamcity</groupId>
+            <artifactId>test-prioritization-plugin-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.jetbrains.testPrioritizationPlugin</groupId>
-            <artifactId>testPrioritizationPlugin-common</artifactId>
+            <groupId>org.jetbrains.teamcity</groupId>
+            <artifactId>test-prioritization-plugin-server</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
@@ -55,15 +55,15 @@
                     <replacements>
                         <replacement>
                             <token>~Version~</token>
-                            <value>${teamcity.testPrioritizationPlugin.plugin.version}</value>
+                            <value>${teamcity.test-prioritization-plugin.plugin.version}</value>
                         </replacement>
                         <replacement>
                             <token>~VendorName~</token>
-                            <value>${teamcity.testPrioritizationPlugin.plugin.vendorName}</value>
+                            <value>${teamcity.test-prioritization-plugin.plugin.vendorName}</value>
                         </replacement>
                         <replacement>
                             <token>~VendorURL~</token>
-                            <value>${teamcity.testPrioritizationPlugin.plugin.vendorUrl}</value>
+                            <value>${teamcity.test-prioritization-plugin.plugin.vendorUrl}</value>
                         </replacement>
                     </replacements>
                 </configuration>
@@ -79,7 +79,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>testPrioritizationPlugin-agent</finalName>
+                            <finalName>test-prioritization-plugin-agent</finalName>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>plugin-agent-assembly.xml</descriptor>
@@ -93,7 +93,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <finalName>testPrioritizationPlugin</finalName>
+                            <finalName>test-prioritization-plugin</finalName>
                             <outputDirectory>${project.parent.build.directory}</outputDirectory>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
