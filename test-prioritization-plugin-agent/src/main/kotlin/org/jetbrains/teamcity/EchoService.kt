@@ -7,7 +7,7 @@ import jetbrains.buildServer.serverSide.TeamCityProperties
 
 class EchoService : BuildServiceAdapter() {
     override fun makeProgramCommandLine(): ProgramCommandLine {
-        val message = TeamCityProperties.getPropertyOrNull("teamcity.tests.runRiskGroupTestsFirst") ?: "poxui"
+        val message = TeamCityProperties.getPropertyOrNull("teamcity.tests.runRiskGroupTestsFirst") ?: "nevazhno"
         return SimpleProgramCommandLine(runnerContext, "/bin/echo", listOf(message))
     }
 }
