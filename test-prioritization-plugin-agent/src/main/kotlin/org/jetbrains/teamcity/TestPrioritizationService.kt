@@ -16,7 +16,8 @@ class TestPrioritizationService : BuildServiceAdapter() {
     override fun makeProgramCommandLine(): ProgramCommandLine {
         val message = "junit.jupiter.testmethod.order.default=org.example.CustomOrder\n" +
                 "junit.jupiter.testclass.order.default=org.example.CustomClassOrder\n"
-        val folder = "src/test/resources"
+        val testsFolder = runnerParameters[PrioritizationConstants.TESTS_FOLDER_KEY]
+        val folder = "$testsFolder/resources"
         val filename = "$folder/junit-platform.properties"
         val scriptContent = "mkdir -p '$folder' ; touch $filename ; /usr/bin/printf '$message' | tee '$filename'"
         val script = getCustomScript(scriptContent)
