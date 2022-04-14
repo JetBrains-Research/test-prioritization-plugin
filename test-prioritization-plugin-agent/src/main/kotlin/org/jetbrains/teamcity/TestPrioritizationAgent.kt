@@ -3,6 +3,8 @@ package org.jetbrains.teamcity
 import jetbrains.buildServer.agent.AgentLifeCycleAdapter
 import jetbrains.buildServer.agent.AgentLifeCycleListener
 import jetbrains.buildServer.agent.AgentRunningBuild
+import jetbrains.buildServer.agent.BuildRunnerContext
+import jetbrains.buildServer.messages.BuildMessage1
 import jetbrains.buildServer.util.EventDispatcher
 
 class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener>) : AgentLifeCycleAdapter() {

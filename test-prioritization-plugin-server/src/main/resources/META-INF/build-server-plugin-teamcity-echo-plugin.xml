@@ -5,4 +5,5 @@
        default-autowire="constructor">
     <bean id="testPrioritizationFeature" class="org.jetbrains.teamcity.TestPrioritizationFeature"/>
     <bean id="testPrioritizationBuildServer" class="org.jetbrains.teamcity.TestPrioritizationBuildServer"/>
+    <bean id="testPrioritizationContextProcessor" class="org.jetbrains.teamcity.TestPrioritizationContextProcessor"/>
 </beans>
