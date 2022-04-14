@@ -17,9 +17,9 @@ class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListe
         if (features.isEmpty()) return
         val storage = build.buildType?.getCustomDataStorage(PrioritizationConstants.FEATURE_NAME) ?: return
         val priority = HashMap<String, Double>()
-        build.fullStatistics.allTests.forEach { testRun ->
-            val name = testRun.test.name.nameWithoutParameters
-            val isSuccessful = testRun.status.isSuccessful
+        build.fullStatistics.allTests.groupingBy { it.test.name.nameWithoutParameters }.fold(true) { success, p ->
+            success && p.status.isSuccessful
+        }.forEach { (name, isSuccessful) ->
             val was = storage.getValue(name) ?: "0/0"
             var (successful, all) = was.split("/").map { it.toInt() }
             if (isSuccessful) successful += 1
