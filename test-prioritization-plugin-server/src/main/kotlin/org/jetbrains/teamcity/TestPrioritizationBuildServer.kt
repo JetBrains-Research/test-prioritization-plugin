@@ -5,15 +5,13 @@ import jetbrains.buildServer.serverSide.BuildServerAdapter
 import jetbrains.buildServer.serverSide.BuildServerListener
 import jetbrains.buildServer.serverSide.SRunningBuild
 import jetbrains.buildServer.util.EventDispatcher
+import org.jetbrains.teamcity.TestPrioritizationUtils.isFeatureEnabled
 import org.jetbrains.teamcity.TestPrioritizationUtils.toRatioOrNull
 
 class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListener>) : BuildServerAdapter() {
     init {
         dispatcher.addListener(this)
     }
-
-    private fun isFeatureEnabled(build: SRunningBuild) =
-        build.getBuildFeaturesOfType(PrioritizationConstants.FEATURE_TYPE).isNotEmpty()
 
     override fun buildFinished(build: SRunningBuild) {
         if (!isFeatureEnabled(build)) return
