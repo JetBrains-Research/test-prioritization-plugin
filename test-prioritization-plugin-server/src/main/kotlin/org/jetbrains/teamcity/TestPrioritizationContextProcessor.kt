@@ -16,6 +16,6 @@ class TestPrioritizationContextProcessor : BuildStartContextProcessor {
             name to successful.toDouble() / all
         }.sortedBy { it.second }.joinToString(separator = "\n") { it.first }
 
-        context.addSharedParameter(PrioritizationConstants.TEST_SORTED_CONFIG_KEY, config)
+        context.addSharedParameter(PrioritizationConstants.METHOD_ORDER_CONFIG_KEY, config)
     }
 }

@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="bs" tagdir="/WEB-INF/tags" %>
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
-<c:set var="testsFolderId" value="<%=PrioritizationConstants.TESTS_FOLDER_KEY%>"/>
+<c:set var="testsFolderId" value="<%=PrioritizationConstants.TESTS_FOLDER_NAME_KEY%>"/>
 
 <l:settingsGroup title="Test prioritization settings">
     <tr>
