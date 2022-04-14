@@ -17,9 +17,9 @@ class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListe
         if (features.isEmpty()) return
         val storage = build.buildType?.getCustomDataStorage(PrioritizationConstants.FEATURE_NAME) ?: return
         val priority = HashMap<String, Double>()
-        build.fullStatistics.allTests.forEach { test ->
-            val name = test.test.name.asString
-            val isSuccessful = test.status.isSuccessful
+        build.fullStatistics.allTests.forEach { testRun ->
+            val name = testRun.test.name.nameWithoutParameters
+            val isSuccessful = testRun.status.isSuccessful
             val was = storage.getValue(name) ?: "0/0"
             var (successful, all) = was.split("/").map { it.toInt() }
             if (isSuccessful) successful += 1
@@ -28,7 +28,7 @@ class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListe
             storage.putValue(name, "$successful/$all")
         }
         storage.flush()
-        Loggers.SERVER.debug(storage.values?.entries?.joinToString(separator = "\n") { "${it.key}: ${it.value}" })
+        Loggers.SERVER.info(storage.values?.entries?.joinToString(separator = "\n") { "${it.key}: ${it.value}" })
         val config = storage.values?.keys?.toMutableList() ?: return
         config.sortBy { priority[it] }
         val serialized = config.joinToString(separator = "\n")
