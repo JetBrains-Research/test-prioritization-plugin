@@ -15,7 +15,6 @@ class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener
         if (features.isEmpty()) return
         val feature = features.first()
         val logger = build.buildLogger.threadLogger
-        logger.message("Reordering tests...")
         val folder = feature.parameters[PrioritizationConstants.TESTS_FOLDER_KEY] ?: return
         val tests = build.checkoutDirectory.resolve(folder)
         val testsResources = tests.resolve("resources")
@@ -23,14 +22,22 @@ class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener
         testsKotlin.mkdirs()
         testsResources.mkdirs()
 
+        val WTF = this::class.java.getResourceAsStream("/template/custom-order-template.kt")?.bufferedReader()?.readText() ?: return
+        val WTF2 = this::class.java.getResourceAsStream("/template/junit-platform-properties-template.txt")?.bufferedReader()?.readText() ?: return
+
+        logger.message("Reordering tests...")
+
         val junitPropertiesFile = testsResources.resolve("junit-platform.properties")
+        val methodSortingConfigFile = testsResources.resolve("test-prioritization-method-config.txt")
         val customOrderFile = testsKotlin.resolve("CustomOrder.kt")
 
-        val rawConfig = build.sharedConfigParameters.getValue(PrioritizationConstants.TEST_SORTED_CONFIG_KEY)
-        val config = rawConfig.lineSequence().map { "\"$it\"," }.joinToString(separator = "\n" + " ".repeat(8))
-        val wtf = PrioritizationConstants.WTF.replace(PrioritizationConstants.INSERT_YOUR_CONFIG_HERE, config)
+        val config = build.sharedConfigParameters.getValue(PrioritizationConstants.TEST_SORTED_CONFIG_KEY)
 
-        junitPropertiesFile.writeText(PrioritizationConstants.WTF2)
-        customOrderFile.writeText(wtf)
+        methodSortingConfigFile.writeText(config)
+        customOrderFile.writeText(WTF)
+        junitPropertiesFile.writeText(WTF2)
+
+        logger.message("DONE")
+        logger.message(methodSortingConfigFile.readText())
     }
 }
