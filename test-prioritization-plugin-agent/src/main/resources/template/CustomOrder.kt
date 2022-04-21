@@ -15,13 +15,13 @@ class CustomOrder : MethodOrderer, ClassOrderer {
         it.substringBeforeLast(":") to it.substringAfterLast(":").toDouble()
     }
 
-    private val Method.simpleName
+    private val Method.qualifiedName
         get() = "${declaringClass.name}.${name}"
 
     override fun orderMethods(context: MethodOrdererContext) {
         successProbability ?: return
         context.methodDescriptors.sortBy {
-            successProbability.getOrDefault(it.method.simpleName, 0.0)
+            successProbability.getOrDefault(it.method.qualifiedName, 0.0)
         }
     }
 
@@ -29,7 +29,7 @@ class CustomOrder : MethodOrderer, ClassOrderer {
         successProbability ?: return
         context.classDescriptors.sortByDescending {
             it.testClass.declaredMethods.sumOf { method ->
-                1.0 - successProbability.getOrDefault(method.simpleName, 0.0)
+                1.0 - successProbability.getOrDefault(method.qualifiedName, 0.0)
             }
         }
     }
