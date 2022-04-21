@@ -27,7 +27,7 @@ class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener
     override fun buildStarted(build: AgentRunningBuild) {
         val feature = testPrioritizationFeature(build) ?: return
         val testsFolderName = feature.parameters[PrioritizationConstants.TESTS_FOLDER_NAME_KEY] ?: return
-        val methodOrderConfig = build.sharedConfigParameters[PrioritizationConstants.METHOD_ORDER_CONFIG_KEY] ?: return
+        val config = build.sharedConfigParameters[PrioritizationConstants.CONFIG_KEY] ?: return
         val customOrderTemplate = getResource(CUSTOM_ORDER_TEMPLATE) ?: return
         val junitPropertiesTemplate = getResource(JUNIT_PROPERTIES_TEMPLATE) ?: return
 
@@ -41,7 +41,7 @@ class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener
         testsResources.mkdirs()
 
         testsKotlin.resolve(CUSTOM_ORDER_FILE).writeText(customOrderTemplate)
-        testsResources.resolve(TEST_PRIORITIZATION_CONFIG).writeText(methodOrderConfig)
+        testsResources.resolve(TEST_PRIORITIZATION_CONFIG).writeText(config)
         testsResources.resolve(JUNIT_PROPERTIES_FILE).writeText(junitPropertiesTemplate)
 
         logger.message("Reordering tests done")

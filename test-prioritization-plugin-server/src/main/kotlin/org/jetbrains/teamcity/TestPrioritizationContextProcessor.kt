@@ -17,6 +17,6 @@ class TestPrioritizationContextProcessor : BuildStartContextProcessor {
             }
         }.joinToString(separator = "\n")
 
-        context.addSharedParameter(PrioritizationConstants.METHOD_ORDER_CONFIG_KEY, config)
+        context.addSharedParameter(PrioritizationConstants.CONFIG_KEY, config)
     }
 }
