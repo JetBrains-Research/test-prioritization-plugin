@@ -5,7 +5,7 @@ import jetbrains.buildServer.serverSide.BuildServerAdapter
 import jetbrains.buildServer.serverSide.BuildServerListener
 import jetbrains.buildServer.serverSide.SRunningBuild
 import jetbrains.buildServer.util.EventDispatcher
-import org.jetbrains.teamcity.TestPrioritizationUtils.isFeatureEnabled
+import org.jetbrains.teamcity.TestPrioritizationUtils.isTestPrioritizationEnabled
 import org.jetbrains.teamcity.TestPrioritizationUtils.toRatioOrNull
 
 class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListener>) : BuildServerAdapter() {
@@ -14,10 +14,11 @@ class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListe
     }
 
     override fun buildFinished(build: SRunningBuild) {
-        if (!isFeatureEnabled(build)) return
+        if (!build.isTestPrioritizationEnabled()) return
         val storage = build.buildType?.getCustomDataStorage(PrioritizationConstants.FEATURE_NAME) ?: return
 
-        build.fullStatistics.allTests.groupingBy { it.test.name.nameWithoutParameters }.fold(true) { success, p ->
+        val testsByName = build.fullStatistics.allTests.groupingBy { it.test.name.nameWithoutParameters }
+        testsByName.fold(true) { success, p ->
             success && p.status.isSuccessful
         }.forEach { (name, isSuccessful) ->
             val fraction = storage.getValue(name) ?: "0/0"

@@ -7,11 +7,11 @@ import jetbrains.buildServer.util.EventDispatcher
 
 private const val RESOURCES = "resources"
 private const val KOTLIN = "kotlin"
-private const val CUSTOM_ORDER_TEMPLATE = "/template/custom-order-template.kt"
-private const val JUNIT_PROPERTIES_TEMPLATE = "/template/junit-platform-properties-template.txt"
-private const val JUNIT_PROPERTIES_FILE = "junit-platform.properties"
-private const val METHOD_ORDER_CONFIG = "test-prioritization-method-config.txt"
 private const val CUSTOM_ORDER_FILE = "CustomOrder.kt"
+private const val JUNIT_PROPERTIES_FILE = "junit-platform.properties"
+private const val CUSTOM_ORDER_TEMPLATE = "/template/$CUSTOM_ORDER_FILE"
+private const val JUNIT_PROPERTIES_TEMPLATE = "/template/$JUNIT_PROPERTIES_FILE"
+private const val TEST_PRIORITIZATION_CONFIG = "test-prioritization-config.txt"
 
 class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener>) : AgentLifeCycleAdapter() {
     init {
@@ -41,10 +41,10 @@ class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener
         testsResources.mkdirs()
 
         testsKotlin.resolve(CUSTOM_ORDER_FILE).writeText(customOrderTemplate)
-        testsResources.resolve(METHOD_ORDER_CONFIG).writeText(methodOrderConfig)
+        testsResources.resolve(TEST_PRIORITIZATION_CONFIG).writeText(methodOrderConfig)
         testsResources.resolve(JUNIT_PROPERTIES_FILE).writeText(junitPropertiesTemplate)
 
         logger.message("Reordering tests done")
-        logger.message(methodOrderConfig)
+        logger.message(testsResources.resolve(TEST_PRIORITIZATION_CONFIG).readText())
     }
 }
