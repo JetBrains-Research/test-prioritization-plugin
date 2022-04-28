@@ -6,4 +6,5 @@ object PrioritizationConstants {
     const val DISPLAY_NAME = "Test Prioritization"
     const val TESTS_FOLDER_NAME_KEY = "prioritization-tests-folder-name"
     const val CONFIG_KEY = "test-prioritization-custom-order"
+    const val PREVIOUS_BUILD_KEY = "test-prioritization-previous-build"
 }

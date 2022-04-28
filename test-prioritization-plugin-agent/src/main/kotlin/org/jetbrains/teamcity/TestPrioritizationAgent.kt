@@ -28,11 +28,13 @@ class TestPrioritizationAgent(dispatcher: EventDispatcher<AgentLifeCycleListener
         val feature = testPrioritizationFeature(build) ?: return
         val testsFolderName = feature.parameters[PrioritizationConstants.TESTS_FOLDER_NAME_KEY] ?: return
         val config = build.sharedConfigParameters[PrioritizationConstants.CONFIG_KEY] ?: return
+        val previousBuildId = build.sharedConfigParameters[PrioritizationConstants.PREVIOUS_BUILD_KEY] ?: return
         val customOrderTemplate = getResource(CUSTOM_ORDER_TEMPLATE) ?: return
         val junitPropertiesTemplate = getResource(JUNIT_PROPERTIES_TEMPLATE) ?: return
 
         val logger = build.buildLogger.threadLogger
         logger.message("Reordering tests...")
+        logger.message(previousBuildId)
 
         val testsDir = build.checkoutDirectory.resolve(testsFolderName)
         val testsKotlin = testsDir.resolve(KOTLIN)
