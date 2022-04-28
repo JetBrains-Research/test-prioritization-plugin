@@ -8,11 +8,18 @@ import java.lang.reflect.Method
 
 const val TEST_PRIORITIZATION_CONFIG = "/test-prioritization-config.txt"
 
+fun String.toRatioValue(): Double? {
+    val splitFraction = split("/").mapNotNull { it.toIntOrNull() }
+    return if (splitFraction.size == 2) {
+        splitFraction[0].toDouble() / splitFraction[1]
+    } else null
+}
+
 class CustomOrder : MethodOrderer, ClassOrderer {
     private val config = this::class.java.getResourceAsStream(TEST_PRIORITIZATION_CONFIG)
 
     private val successProbability = config?.bufferedReader()?.readLines()?.associate {
-        it.substringBeforeLast(":") to it.substringAfterLast(":").toDouble()
+        it.substringBeforeLast(":") to it.substringAfterLast(":").toRatioValue()
     }
 
     private val Method.qualifiedName
@@ -29,7 +36,7 @@ class CustomOrder : MethodOrderer, ClassOrderer {
         successProbability ?: return
         context.classDescriptors.sortByDescending {
             it.testClass.declaredMethods.sumOf { method ->
-                1.0 - successProbability.getOrDefault(method.qualifiedName, 0.0)
+                1.0 - (successProbability[method.qualifiedName] ?: 0.0)
             }
         }
     }

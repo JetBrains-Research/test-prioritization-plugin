@@ -11,10 +11,16 @@
     <packaging>jar</packaging>
 
     <properties>
-        <kotlin.version>1.6.10</kotlin.version>
+        <kotlin.version>1.6.21</kotlin.version>
     </properties>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.github.kittinunf.fuel</groupId>
+            <artifactId>fuel</artifactId>
+            <version>2.3.1</version>
+        </dependency>
 
         <dependency>
             <groupId>org.jetbrains.teamcity</groupId>
