@@ -16,8 +16,8 @@ import org.jetbrains.teamcity.PrioritizationConstants.ARTIFACT_CONFIG_PATH
 import org.jetbrains.teamcity.PrioritizationConstants.ARTIFACT_FOLDER_PATH
 
 private const val RESOURCES = "resources"
-private const val KOTLIN = "kotlin"
-private const val CUSTOM_ORDER_FILE = "CustomOrder.kt"
+private const val JAVA = "java"
+private const val CUSTOM_ORDER_FILE = "CustomOrder.java"
 private const val JUNIT_PROPERTIES_FILE = "junit-platform.properties"
 private const val CUSTOM_ORDER_TEMPLATE = "/template/$CUSTOM_ORDER_FILE"
 private const val JUNIT_PROPERTIES_TEMPLATE = "/template/$JUNIT_PROPERTIES_FILE"
@@ -64,9 +64,9 @@ class TestPrioritizationAgent(
         logger.message("Reordering tests...")
 
         val testsDir = build.checkoutDirectory.resolve(testsFolderName)
-        val testsKotlin = testsDir.resolve(KOTLIN)
+        val testsJava = testsDir.resolve(JAVA)
         val testsResources = testsDir.resolve(RESOURCES)
-        testsKotlin.mkdirs()
+        testsJava.mkdirs()
         testsResources.mkdirs()
 
         val config = getPreviousConfig(build)
@@ -75,7 +75,7 @@ class TestPrioritizationAgent(
         artifactsWatcher.addNewArtifactsPath("$ARTIFACT_CONFIG_NAME => $ARTIFACT_FOLDER_PATH")
 
         testsResources.resolve(TEST_PRIORITIZATION_CONFIG).writeText(config)
-        testsKotlin.resolve(CUSTOM_ORDER_FILE).writeText(customOrderTemplate)
+        testsJava.resolve(CUSTOM_ORDER_FILE).writeText(customOrderTemplate)
         testsResources.resolve(JUNIT_PROPERTIES_FILE).writeText(junitPropertiesTemplate)
 
         logger.message("Reordering tests done")
