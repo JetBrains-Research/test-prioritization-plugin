@@ -28,10 +28,12 @@ class TestPrioritizationBuildServer(dispatcher: EventDispatcher<BuildServerListe
 
         val config = getConfigFromArtifact(build)
 
-        val testsByName = build.fullStatistics.allTests.groupingBy {
+        val testsByName = build.fullStatistics.allTests.filter {
+            !it.isIgnored
+        }.groupingBy {
             it.test.name.nameWithoutParameters
-        }.fold(true) { success, p ->
-            success && p.status.isSuccessful
+        }.fold(true) { success, testRun ->
+            success && testRun.status.isSuccessful
         }
 
         testsByName.forEach { (name, isSuccessful) ->
