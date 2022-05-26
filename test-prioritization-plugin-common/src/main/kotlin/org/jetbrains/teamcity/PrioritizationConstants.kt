@@ -6,7 +6,7 @@ object PrioritizationConstants {
 
     const val FEATURE_TYPE = "test-prioritization-type"
     const val DISPLAY_NAME = "Test Prioritization"
-    const val TESTS_FOLDER_NAME_KEY = "prioritization-tests-folder-name"
+    const val TESTS_FOLDER_ROOT_PATHS_KEY = "prioritization-tests-folder-root-paths"
     const val PREVIOUS_BUILD_KEY = "test-prioritization-previous-build"
     const val ARTIFACT_CONFIG_NAME = "config.txt"
     const val ARTIFACT_FOLDER_PATH = "$TEAMCITY_ARTIFACTS_DIR/$ARTIFACTS_FOLDER_NAME"

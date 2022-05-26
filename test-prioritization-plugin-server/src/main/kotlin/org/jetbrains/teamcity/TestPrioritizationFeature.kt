@@ -15,6 +15,6 @@ class TestPrioritizationFeature(descriptor: PluginDescriptor) : BuildFeature() {
     override fun isMultipleFeaturesPerBuildTypeAllowed(): Boolean = false
 
     override fun describeParameters(params: MutableMap<String, String>): String {
-        return "Tests folder: '${params[PrioritizationConstants.TESTS_FOLDER_NAME_KEY]}'"
+        return "Tests folder root paths: '${params[PrioritizationConstants.TESTS_FOLDER_ROOT_PATHS_KEY]}'"
     }
 }

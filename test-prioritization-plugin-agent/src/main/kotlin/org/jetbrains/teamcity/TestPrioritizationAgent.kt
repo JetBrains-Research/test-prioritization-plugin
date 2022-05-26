@@ -54,29 +54,31 @@ class TestPrioritizationAgent(
         return if (response.isSuccessful) result.get() else ""
     }
 
-    override fun buildStarted(build: AgentRunningBuild) {
+    override fun preparationFinished(build: AgentRunningBuild) {
         val feature = testPrioritizationFeature(build) ?: return
         val customOrderTemplate = getResource(CUSTOM_ORDER_TEMPLATE) ?: return
         val junitPropertiesTemplate = getResource(JUNIT_PROPERTIES_TEMPLATE) ?: return
-        val testsFolderName = feature.parameters[PrioritizationConstants.TESTS_FOLDER_NAME_KEY] ?: return
+        val testsRootsPaths = feature.parameters[PrioritizationConstants.TESTS_FOLDER_ROOT_PATHS_KEY] ?: return
+        if (testsRootsPaths.isEmpty()) return
 
         val logger = build.buildLogger.threadLogger
         logger.message("Reordering tests...")
 
-        val testsDir = build.checkoutDirectory.resolve(testsFolderName)
-        val testsJava = testsDir.resolve(JAVA)
-        val testsResources = testsDir.resolve(RESOURCES)
-        testsJava.mkdirs()
-        testsResources.mkdirs()
-
         val config = getPreviousConfig(build)
-
         build.checkoutDirectory.resolve(ARTIFACT_CONFIG_NAME).writeText(config)
         artifactsWatcher.addNewArtifactsPath("$ARTIFACT_CONFIG_NAME => $ARTIFACT_FOLDER_PATH")
 
-        testsResources.resolve(TEST_PRIORITIZATION_CONFIG).writeText(config)
-        testsJava.resolve(CUSTOM_ORDER_FILE).writeText(customOrderTemplate)
-        testsResources.resolve(JUNIT_PROPERTIES_FILE).writeText(junitPropertiesTemplate)
+        testsRootsPaths.lineSequence().forEach { testsRootPath ->
+            val testsDir = build.checkoutDirectory.resolve(testsRootPath)
+            val testsJava = testsDir.resolve(JAVA)
+            val testsResources = testsDir.resolve(RESOURCES)
+            testsJava.mkdirs()
+            testsResources.mkdirs()
+
+            testsResources.resolve(TEST_PRIORITIZATION_CONFIG).writeText(config)
+            testsJava.resolve(CUSTOM_ORDER_FILE).writeText(customOrderTemplate)
+            testsResources.resolve(JUNIT_PROPERTIES_FILE).writeText(junitPropertiesTemplate)
+        }
 
         logger.message("Reordering tests done")
     }
