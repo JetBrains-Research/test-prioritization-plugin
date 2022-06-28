@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.jetbrains.teamcity</groupId>
+    <artifactId>test-prioritization-plugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <properties>
+        <teamcity-version>2021.2.3</teamcity-version>
+    </properties>
+    <repositories>
+        <repository>
+            <id>JetBrains</id>
+            <url>https://download.jetbrains.com/teamcity-repository</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>JetBrains</id>
+            <url>https://download.jetbrains.com/teamcity-repository</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <modules>
+        <module>build</module>
+        <module>test-prioritization-plugin-agent</module>
+        <module>test-prioritization-plugin-common</module>
+        <module>test-prioritization-plugin-server</module>
+    </modules>
+</project>
